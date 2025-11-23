@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/watch_model.dart';
 import '../services/cart_service.dart';
+import 'checkout_screen.dart'; // <--- IMPORTANTE: Conectamos con la pantalla de dirección
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -66,9 +67,10 @@ class _CartScreenState extends State<CartScreen> {
                     height: 55,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Aquí iría la pasarela de pago
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Procesando pago...")),
+                        // NAVEGACIÓN A LA PANTALLA DE DIRECCIÓN (Checkout)
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CheckoutScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

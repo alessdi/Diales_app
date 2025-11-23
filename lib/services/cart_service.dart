@@ -17,6 +17,11 @@ class CartService {
     _cartItems.remove(watch);
   }
 
+  // --- NUEVO: Función para vaciar el carrito al comprar ---
+  static void clear() {
+    _cartItems.clear();
+  }
+
   // Calcular el total (Truco: Limpiamos el signo de $ y las comas para sumar)
   static String getTotal() {
     double total = 0;
