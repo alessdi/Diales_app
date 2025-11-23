@@ -1,9 +1,11 @@
-class Watch {
-  final String name;
-  final String price;
-  final String imagePath;
-  final String description; // <--- NUEVO CAMPO PARA TUS CARACTERÍSTICAS
+class Watch {  // Clases 
+  final String name; // Nombre del reloj
+  final String price; // precio del reloj
+  final String imagePath; // ruta al asset de imagen
+  final String description; // descripcion del producto para la pantalla de detalles
 
+
+// Constructor que requiere todos los campos obligatorios
   Watch({
     required this.name, 
     required this.price, 
@@ -12,7 +14,6 @@ class Watch {
   });
 }
 
-// --- AQUÍ ES DONDE EDITAS LOS NOMBRES, PRECIOS Y DESCRIPCIONES ---
 final List<Watch> myWatches = [
   Watch(
     name: "Batman GMT", 

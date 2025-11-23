@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/watch_model.dart';
 import '../services/cart_service.dart';
-import 'checkout_screen.dart'; // <--- IMPORTANTE: Conectamos con la pantalla de dirección
+import 'checkout_screen.dart'; 
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -18,12 +18,14 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
+      // APP BAR
       appBar: AppBar(
         backgroundColor: AppTheme.background,
         elevation: 0,
         title: const Text("Mi Carrito", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+      // CUERPO PRINCIPAL
       body: Column(
         children: [
           // LISTA DE PRODUCTOS
@@ -40,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
           ),
 
-          // RESUMEN DE PAGO (Solo si hay items)
+          // RESUMEN DE PAGO
           if (cartItems.isNotEmpty)
             Container(
               padding: const EdgeInsets.all(20),
@@ -62,12 +64,12 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
+                  SizedBox( // BOTON DE PAGAR
                     width: double.infinity,
                     height: 55,
                     child: ElevatedButton(
                       onPressed: () {
-                        // NAVEGACIÓN A LA PANTALLA DE DIRECCIÓN (Checkout)
+                        // NAVEGACIÓN A LA PANTALLA DE DIRECCIÓN 
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const CheckoutScreen()),
@@ -109,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color(0xFF2C2C2C), // Un gris un poco más claro que el fondo
+        color: const Color(0xFF2C2C2C), 
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(

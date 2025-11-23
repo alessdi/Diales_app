@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'theme/app_theme.dart';       // Importamos el tema
-import 'screens/auth_screen.dart';   // Importamos la pantalla de login
+import 'theme/app_theme.dart';       
+import 'screens/auth_screen.dart';   // Pantalla de login
 
 void main() {
   runApp(const DialezApp());
@@ -15,10 +15,10 @@ class DialezApp extends StatelessWidget {
       title: 'Dialez Watches',
       debugShowCheckedModeBanner: false,
       
-      // Usamos el tema centralizado
+      // Tema centralizado
       theme: AppTheme.darkTheme,
       
-      // Definimos la pantalla inicial
+      // Pantalla inicial
       home: const AuthScreen(),
     );
   }

@@ -7,6 +7,7 @@ import '../services/cart_service.dart';
 import 'home_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
+  // Recibe la dirección concatenada desde CheckoutScreen
   final String direccionEnvio;
 
   const PaymentScreen({super.key, this.direccionEnvio = "Dirección no especificada"});
@@ -15,6 +16,7 @@ class PaymentScreen extends StatefulWidget {
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
+  // Controladores del formulario de tarjeta
 class _PaymentScreenState extends State<PaymentScreen> {
   final _cardNumberController = TextEditingController();
   final _cardHolderController = TextEditingController();
@@ -40,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Resumen de Dirección
+                // Resumen Visual de la Dirección 
                 Container(
                   padding: const EdgeInsets.all(15),
                   margin: const EdgeInsets.only(bottom: 30),
@@ -66,6 +68,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
 
+
+                // FORMULARIO DE TARJETA
                 const Text("Datos de Tarjeta", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
                 DialezTextField(controller: _cardHolderController, hint: "Nombre del Titular", icon: Icons.person),
@@ -78,6 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
                 
+                // Resumen del total
                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,6 +94,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
           ),
+          // Boton de Pagar
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(color: AppTheme.surface, border: Border(top: BorderSide(color: Colors.black))),
@@ -112,17 +118,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
+// Logica de Integracion API REST
   void _processPaymentAndSendEmailAutomatic() async {
     setState(() {
       _isSending = true;
     });
 
+    // 2. Preparar datos del carrito como string para el email
     String itemsList = "";
     for (var item in CartService.items) {
       itemsList += "- ${item.name}: ${item.price}\n";
     }
 
-    // TUS CLAVES CORRECTAS
+    // Credenciales de EmailJS
     const serviceId = 'service_vhef46p';
     const templateId = 'template_my09eym';
     const userId = 'HCZOvtqVyVpzCGuF_';
@@ -130,14 +138,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
 
     try {
-      final response = await http.post(
+      final response = await http.post( // Petición POST
         url,
         headers: {
           'Content-Type': 'application/json',
           'origin': 'http://localhost',
         },
         body: json.encode({
-          // ESTOS NOMBRES DE LA IZQUIERDA NO SE TOCAN, SON FIJOS:
           'service_id': serviceId,
           'template_id': templateId,
           'user_id': userId,
@@ -151,13 +158,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
         }),
       );
 
+      // Manejo de respuesta
       if (response.statusCode == 200) {
         if (!mounted) return;
         _showSuccessDialog();
       } else {
         print("Error EmailJS: ${response.body}");
         if (!mounted) return;
-        // Si falla el correo, mostramos error pero dejamos terminar la compra
+        // Si falla el correo, se muestra error pero dejamos terminar la compra
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error de conexión con el correo, pero tu compra fue procesada.")));
         _showSuccessDialog();
       }
@@ -166,7 +174,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       print("Error de conexión: $e");
       if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error de conexión.")));
-        _showSuccessDialog(); // Dejamos pasar al usuario
+        _showSuccessDialog();
     } finally {
       if (mounted) {
         setState(() {

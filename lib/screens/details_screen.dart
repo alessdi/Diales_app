@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/watch_model.dart';
-import '../services/cart_service.dart'; // Importamos el servicio
+import '../services/cart_service.dart';
 
 class DetailsScreen extends StatelessWidget {
+  // El objeto 'watch' se recibe como parámetro desde el HomeScreen.
   final Watch watch;
 
   const DetailsScreen({super.key, required this.watch});
@@ -19,6 +20,7 @@ class DetailsScreen extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       
+      // CONTENIDO SCROLLEBALE
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +81,7 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
 
-      // 5. BOTÓN DE COMPRA (Con lógica de Carrito y SnackBar)
+      // 5. BOTÓN DE COMPRA
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
@@ -91,7 +93,7 @@ class DetailsScreen extends StatelessWidget {
             // 1. Agregamos al carrito
             CartService.add(watch);
 
-            // 2. Mostramos el mensaje personalizado (SnackBar Estilo Dialez)
+            // 2. Mostramos el mensaje personalizado 
             ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Ocultar anteriores
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

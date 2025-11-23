@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // --- PALETA DE COLORES (DIALEZ) ---
-  static const Color background = Color(0xFF1C1C1C); // Fondo muy oscuro
-  static const Color surface = Color(0xFF2C2C2C);    // Gris fuerte para tarjetas/inputs
-  static const Color primary = Color(0xFF424242);    // Gris medio
-  static const Color accent = Color(0xFFBDBDBD);     // Gris plata (texto y botones)
+  // PALETA DE COLORES
+  static const Color background = Color(0xFF1C1C1C); 
+  static const Color surface = Color(0xFF2C2C2C);    
+  static const Color primary = Color(0xFF424242);   
+  static const Color accent = Color(0xFFBDBDBD);     
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Colors.grey;
 
-  // --- TEMA GENERAL DE LA APP ---
+  // TEMA GENERAL DE LA APP 
   static ThemeData get darkTheme {
     return ThemeData(
       scaffoldBackgroundColor: background,
       primaryColor: primary,
-      fontFamily: 'Roboto', // Fuente limpia
+      fontFamily: 'Roboto', // Fuente 
       colorScheme: const ColorScheme.dark(
         primary: accent,
         surface: surface,
@@ -24,7 +24,7 @@ class AppTheme {
     );
   }
 
-  // --- ESTILO DE INPUTS (Como clases CSS) ---
+  // ESTILO DE INPUTS
   static InputDecoration inputDecoration({
     required String hint,
     required IconData icon,

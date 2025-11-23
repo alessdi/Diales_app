@@ -49,7 +49,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               const SizedBox(height: 30),
 
-              // --- FORMULARIO ---
+              //CAMPOS DEL FORMULARIO
               
               // Calle
               DialezTextField(
@@ -167,7 +167,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  // AQUÍ ESTÁ LA CLAVE: Pasamos la variable 'direccionCompleta'
                   builder: (context) => PaymentScreen(direccionEnvio: direccionCompleta),
                 ),
               );

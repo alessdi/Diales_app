@@ -10,11 +10,10 @@ import 'auth_screen.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // --- FUNCIÓN PARA ABRIR INSTAGRAM ---
+  // FUNCION PARA ABRIR INSTAGRAM
   Future<void> _launchInstagram() async {
     final Uri url = Uri.parse('https://www.instagram.com/dialezmods?igsh=MXJzeG9iaHRkNmo0cQ%3D%3D&utm_source=qr');
     try {
-      // Mode externalApplication obliga a que se abra en la App de Instagram o el Navegador
       if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
         throw Exception('No se pudo abrir el link $url');
       }
@@ -38,15 +37,15 @@ class HomeScreen extends StatelessWidget {
           )
         ),
         actions: [
-          // --- NUEVO: BOTÓN DE INSTAGRAM ---
+          // BOTÓN DE INSTAGRAM
           IconButton(
-            // Usamos la cámara como icono de Instagram
+            // ICONO DE CAMARA PARA INSTAGRAM
             icon: const Icon(Icons.camera_alt_outlined, color: AppTheme.accent),
             tooltip: 'Síguenos en Instagram',
             onPressed: _launchInstagram,
           ),
 
-          // --- BOTÓN DEL CARRITO ---
+          // BOTÓN DEL CARRITO 
           IconButton(
             icon: const Icon(Icons.shopping_bag_outlined, color: AppTheme.accent),
             onPressed: () {
@@ -61,12 +60,13 @@ class HomeScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       
-      // --- MENÚ LATERAL (DRAWER) ---
+      // MENÚ LATERAL
       drawer: Drawer(
         backgroundColor: AppTheme.surface,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
+            // Cabecera del menucon informacion del usuario
             const DrawerHeader(
               decoration: BoxDecoration(color: Colors.black),
               child: Column(
@@ -83,6 +83,7 @@ class HomeScreen extends StatelessWidget {
               title: const Text("Inicio", style: TextStyle(color: Colors.white)),
               onTap: () => Navigator.pop(context),
             ),
+            // Opcion mis pedidos
             ListTile(
               leading: const Icon(Icons.local_shipping_outlined, color: Colors.white),
               title: const Text("Mis Pedidos", style: TextStyle(color: Colors.white)),
@@ -91,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const OrdersScreen()));
               },
             ),
-            // Agregamos también el link en el menú lateral por si acaso
+            // Link de instagram en menú lateral
             ListTile(
               leading: const Icon(Icons.camera_alt_outlined, color: Colors.white),
               title: const Text("Instagram", style: TextStyle(color: Colors.white)),
@@ -112,6 +113,8 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
+
+      // CUERPO PRINCIPAL
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -122,6 +125,8 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300, color: Colors.white)
             ),
             const SizedBox(height: 20),
+
+            // GRID DE PRODUCTOS
             Expanded(
               child: GridView.builder(
                 itemCount: myWatches.length,
@@ -143,6 +148,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+// TARJETA PARA CADA RELOJ
   Widget _buildWatchCard(BuildContext context, Watch watch) {
     return GestureDetector(
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(watch: watch))),

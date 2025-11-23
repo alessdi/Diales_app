@@ -17,19 +17,19 @@ class CartService {
     _cartItems.remove(watch);
   }
 
-  // --- NUEVO: Función para vaciar el carrito al comprar ---
+  //Función para vaciar el carrito al comprar
   static void clear() {
     _cartItems.clear();
   }
 
-  // Calcular el total (Truco: Limpiamos el signo de $ y las comas para sumar)
+  // Calcular el total
   static String getTotal() {
     double total = 0;
     for (var item in _cartItems) {
       String cleanPrice = item.price.replaceAll('\$', '').replaceAll(',', '');
       total += double.tryParse(cleanPrice) ?? 0;
     }
-    // Formateamos de vuelta a dinero (simple)
+    // Formateamos de vuelta a dinero 
     return "\$${total.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
   }
 }

@@ -103,7 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  // --- LÓGICA DE AUTENTICACIÓN PERSISTENTE ---
+  // LÓGICA DE AUTENTICACIÓN PERSISTENTE 
   void _handleAuthAction() async {
     FocusScope.of(context).unfocus();
 
@@ -115,11 +115,11 @@ class _AuthScreenState extends State<AuthScreen> {
       return;
     }
 
-    // Obtenemos acceso a la memoria del teléfono
+    // Acceso a la memoria del telefono
     final prefs = await SharedPreferences.getInstance();
 
     if (isLogin) {
-      // --- LOGIN ---
+      // LOGIN 
       
       // Buscamos la contraseña guardada para ese email
       final storedPassword = prefs.getString(email); 
@@ -139,25 +139,25 @@ class _AuthScreenState extends State<AuthScreen> {
       _navigateToHome();
 
     } else {
-      // --- REGISTRO ---
+      // REGISTRO 
 
-      // Verificamos si ya existe
+      // Verificacion del correo existente
       if (prefs.containsKey(email)) {
         _showMessage("Este correo ya ha sido registrado", isError: true);
         return;
       }
 
-      // Guardamos el nuevo usuario
+      // Guardado del nuevo usuario
       await prefs.setString(email, password);
       
-      // Éxito: NO entramos, sino que mandamos al usuario a loguearse
       _showMessage("Cuenta creada. Por favor inicia sesión.");
       
+      // Cambia la vista a Login automáticamente para mejorar la UX
       setState(() {
-        isLogin = true; // Cambiamos visualmente a la pestaña "Entrar"
-        _passwordController.clear(); // Limpiamos la contraseña
+        isLogin = true; 
+        _passwordController.clear(); 
         _isPasswordVisible = false;
-        // Dejamos el email escrito para comodidad del usuario
+        // Email escrito para comodidad del usuario
       });
     }
   }
