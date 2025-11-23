@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../models/watch_model.dart';
-import 'details_screen.dart'; // Importamos la nueva pantalla de detalles
+import 'details_screen.dart'; // Pantalla de características
+import 'cart_screen.dart';    // Pantalla del carrito
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,9 +22,16 @@ class HomeScreen extends StatelessWidget {
           )
         ),
         actions: [
+          // BOTÓN DEL CARRITO
           IconButton(
             icon: const Icon(Icons.shopping_bag_outlined, color: AppTheme.accent),
-            onPressed: () {},
+            onPressed: () {
+              // Navegar a la pantalla del carrito
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            },
           ),
           const SizedBox(width: 10),
         ],
@@ -44,12 +52,13 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
+            // GRID DE RELOJES
             Expanded(
               child: GridView.builder(
                 itemCount: myWatches.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, 
-                  childAspectRatio: 0.70, // Ajustado para que quepan los nombres
+                  childAspectRatio: 0.70, 
                   crossAxisSpacing: 15, 
                   mainAxisSpacing: 15, 
                 ),
@@ -65,12 +74,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Widget individual para cada tarjeta de reloj
+  // TARJETA DE RELOJ INDIVIDUAL
   Widget _buildWatchCard(BuildContext context, Watch watch) {
-    // Usamos GestureDetector para detectar el clic en la tarjeta
     return GestureDetector(
       onTap: () {
-        // Navegación a la pantalla de detalles
+        // Navegar a los detalles del reloj seleccionado
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -93,7 +101,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Imagen del Reloj
+            // Imagen
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -103,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                 ),
                 child: Hero(
-                  tag: watch.name, // Animación Hero para transición suave
+                  tag: watch.name,
                   child: Image.asset(
                     watch.imagePath,
                     fit: BoxFit.contain, 
@@ -112,7 +120,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // 2. Información
+            // Datos
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
